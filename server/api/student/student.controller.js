@@ -123,3 +123,14 @@ exports.getFirstABC = function(req, res) {
     }
   });
 };
+
+ exports.getMajor = function(req, res) {
+   Student.find({}, null, {skip: 0, limit:30, sort:{major1: 1}},  function (err, students) {
+     if (err) {
+       console.log("Error getting data from database");
+       res.send(err)
+     } else {
+       res.json(students); // return results
+     }
+   });
+};
