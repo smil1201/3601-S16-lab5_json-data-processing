@@ -20,4 +20,9 @@ angular.module('3601S16Lab5JsonDataProcessingApp')
 
     };
 
+    this.getCredits = function () {
+      $scope.students = Student.query({id: 'getCredits'});
+
+    };
+
   });

@@ -113,6 +113,7 @@ exports.getABC = function(req, res) {
   });
 };
 
+//sorts by date of birth
 exports.getDOB = function(req, res) {
   Student.find({}, null, {skip: 0, limit:0, sort:{dateOfBirth: 1}},  function (err, students) {
     if (err) {
@@ -124,8 +125,9 @@ exports.getDOB = function(req, res) {
   });
 };
 
+//sorts by primary major
 exports.getMajors = function(req, res) {
-  Student.find({}, null, {skip: 0, limit:0, sort:{major1: 1}},  function (err, students) {
+  Student.find({}, null, {skip: 0, limit:0, sort:{major1: 1, major2:1}},  function (err, students) {
     if (err) {
       console.log("Error getting majors from database");
       res.send(err)
@@ -135,3 +137,32 @@ exports.getMajors = function(req, res) {
   });
 };
 
+
+//helper function to calculate credit number
+exports.getCreditsValue = function(student) {
+  var completedCredits = 0;
+  var students = Student.query();
+  for (var i = 0; i < students.length; i++) {
+    var courses = students[i].courses;
+    for (var j = 0; j < courses.length; j++) {
+      if(courses[j].grade == "F") {
+
+      } else {
+        completedCredits += courses[j].course.credits;
+      }
+    }
+  }
+
+};
+
+//in progress not done yet
+exports.getCredits = function(req, res) {
+  Student.find({}, null, {skip: 0, limit:0, sort:{major1: 1, major2:1}},  function (err, students) {
+    if (err) {
+      console.log("Error getting majors from database");
+      res.send(err)
+    } else {
+      res.json(students); // return results
+    }
+  });
+};
