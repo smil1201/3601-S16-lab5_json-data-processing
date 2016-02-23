@@ -100,3 +100,10 @@ export function destroy(req, res) {
     .then(removeEntity(res))
     .catch(handleError(res));
 }
+
+// Gets a list of Students in alphabetical order - NOT DONE YET
+//export function getABC(req, res) {
+//  Student.findAsync()
+//    .then(respondWithResult(res))
+//    .catch(handleError(res));
+//}
