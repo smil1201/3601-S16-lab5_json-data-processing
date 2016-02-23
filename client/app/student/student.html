@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">Students:</h1>
-      <ul>
+      <ul id="studentList">
         <li ng-repeat="student in students">
         {{ student.firstName }} {{ student.lastName }}
         </li>
@@ -13,8 +13,72 @@
 
   <br>
       <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary" ng-click="student.ABCSort()">Sort alphabetically</button>
+        <button type="submit" class="btn btn-primary" ng-click="student.getABC()">Sort alphabetically</button>
         <button type="submit" class="btn btn-primary" ng-click="student.DOBSort()">Sort by date of birth</button>
         <button type="submit" class="btn btn-primary" ng-click="student.MajorsSort()">Sort by major</button>
       </span>
 </div>
+
+
+
+
+
+
+
+<!-- RICHARDS CODE TO INTEGRATE IF NECESSARY
+
+
+<br><br>
+
+
+<form dropdown-menu="thing-form">
+  <label>Sort by: </label>
+  <p class="input-group">
+
+    <select name="focus">
+      <option value="Last Name">Last Name</option>
+      <option value="First Name">First Name</option>
+      <option value="Date of Birth">Date of Birth</option>
+      <option value="Completed Credits">Completed Credits</option>
+      <option value="Major">Major</option>
+      <option value="GPA">GPA</option>
+      <option value="Year/Status">Year/Status</option>
+    </select>
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-primary" ng-click="student.makeList()">Generate List</button>
+      </span>
+  </p>
+</form>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Individual student:</h1>
+      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in main.awesomeThings">
+        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="main.deleteThing(thing)">&times;</button></a></li>
+      </ul>
+    </div>
+  </div>
+
+
+  <form class="thing-form">
+    <label>Display: </label>index
+    <p class="input-group">
+    <div>
+      <input type="checkbox" name="indivstudentdisplay" value="Detailed Information">Detailed Information
+      <br>
+      <input type="checkbox" name="listofcourses" value="List of Courses">List All Courses
+      <br>
+    </div>
+    <div>
+      <input type="text" class="form-control" style="width: 400px" placeholder="Student Name" ng-model="main.newThing">
+
+      <button type="submit" class="btn btn-primary" ng-click="main.addThing()">Search by Student</button>
+
+    </div>
+    </p>
+  </form>
+</div>
+
+-->
