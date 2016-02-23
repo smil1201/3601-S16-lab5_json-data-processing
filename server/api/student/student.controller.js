@@ -101,9 +101,9 @@ export function destroy(req, res) {
     .catch(handleError(res));
 }
 
-//sorts alphabetically
+
 exports.getABC = function(req, res) {
-  Student.find({}, null, {skip: 0, limit:0, sort:{lastName: 1}},  function (err, students) {
+  Student.find({}, null, {skip: 0, limit:30, sort:{lastName: 1}},  function (err, students) {
     if (err) {
       console.log("Error getting data from database");
       res.send(err)
@@ -160,6 +160,17 @@ exports.getCredits = function(req, res) {
   Student.find({}, null, {skip: 0, limit:0, sort:{major1: 1, major2:1}},  function (err, students) {
     if (err) {
       console.log("Error getting majors from database");
+      res.send(err)
+    } else {
+      res.json(students); // return results
+    }
+  });
+};
+
+exports.getFirstABC = function(req, res) {
+  Student.find({}, null, {skip: 0, limit:30, sort:{firstName: 1}},  function (err, students) {
+    if (err) {
+      console.log("Error getting data from database");
       res.send(err)
     } else {
       res.json(students); // return results

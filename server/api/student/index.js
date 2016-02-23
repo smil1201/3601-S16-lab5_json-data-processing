@@ -10,6 +10,7 @@ router.get('/getABC', controller.getABC);
 router.get('/getDOB', controller.getDOB);
 router.get('/getMajors', controller.getMajors);
 router.get('/getCredits', controller.getCredits);
+router.get('/getFirstABC', controller.getFirstABC);
 
 
 router.get('/:id', controller.show);
