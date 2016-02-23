@@ -6,6 +6,7 @@ angular.module('3601S16Lab5JsonDataProcessingApp')
       .state('student', {
         url: '/students',
         templateUrl: 'app/student/student.html',
-        controller: 'StudentCtrl'
+        controller: 'StudentCtrl',
+        controllerAs: 'student'
       });
   });
