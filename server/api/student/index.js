@@ -7,6 +7,10 @@ var router = express.Router();
 
 router.get('/', controller.index);
 router.get('/getABC', controller.getABC);
+router.get('/getDOB', controller.getDOB);
+router.get('/getMajors', controller.getMajors);
+
+
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);

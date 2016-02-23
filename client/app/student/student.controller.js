@@ -9,4 +9,15 @@ angular.module('3601S16Lab5JsonDataProcessingApp')
       $scope.students = Student.query({id: 'getABC'});
 
     };
+
+    this.getDOB = function () {
+      $scope.students = Student.query({id: 'getDOB'});
+
+    };
+
+    this.getMajors = function () {
+      $scope.students = Student.query({id: 'getMajors'});
+
+    };
+
   });

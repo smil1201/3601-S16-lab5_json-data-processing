@@ -101,9 +101,9 @@ export function destroy(req, res) {
     .catch(handleError(res));
 }
 
-
+//sorts alphabetically
 exports.getABC = function(req, res) {
-  Student.find({}, null, {skip: 0, limit:30, sort:{lastName: 1}},  function (err, students) {
+  Student.find({}, null, {skip: 0, limit:0, sort:{lastName: 1}},  function (err, students) {
     if (err) {
       console.log("Error getting data from database");
       res.send(err)
@@ -112,3 +112,26 @@ exports.getABC = function(req, res) {
     }
   });
 };
+
+exports.getDOB = function(req, res) {
+  Student.find({}, null, {skip: 0, limit:0, sort:{dateOfBirth: 1}},  function (err, students) {
+    if (err) {
+      console.log("Error getting dob from database");
+      res.send(err)
+    } else {
+      res.json(students); // return results
+    }
+  });
+};
+
+exports.getMajors = function(req, res) {
+  Student.find({}, null, {skip: 0, limit:0, sort:{major1: 1}},  function (err, students) {
+    if (err) {
+      console.log("Error getting majors from database");
+      res.send(err)
+    } else {
+      res.json(students); // return results
+    }
+  });
+};
+

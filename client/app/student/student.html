@@ -5,7 +5,7 @@
       <h1 class="page-header">Students:</h1>
       <ul id="studentList">
         <li ng-repeat="student in students">
-        {{ student.firstName }} {{ student.lastName }}
+        {{ student.firstName }} {{ student.lastName }} {{ student.dateOfBirth }} {{ student.major1 }}
         </li>
       </ul>
     </div>
@@ -14,8 +14,8 @@
   <br>
       <span class="input-group-btn">
         <button type="submit" class="btn btn-primary" ng-click="student.getABC()">Sort alphabetically</button>
-        <button type="submit" class="btn btn-primary" ng-click="student.DOBSort()">Sort by date of birth</button>
-        <button type="submit" class="btn btn-primary" ng-click="student.MajorsSort()">Sort by major</button>
+        <button type="submit" class="btn btn-primary" ng-click="student.getDOB()">Sort by date of birth</button>
+        <button type="submit" class="btn btn-primary" ng-click="student.getMajors()">Sort by major</button>
       </span>
 </div>
 
