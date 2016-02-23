@@ -101,9 +101,14 @@ export function destroy(req, res) {
     .catch(handleError(res));
 }
 
-// Gets a list of Students in alphabetical order - NOT DONE YET
-//export function getABC(req, res) {
-//  Student.findAsync()
-//    .then(respondWithResult(res))
-//    .catch(handleError(res));
-//}
+
+exports.getABC = function(req, res) {
+  Student.find({}, null, {skip: 0, limit:30, sort:{lastName: 1}},  function (err, students) {
+    if (err) {
+      console.log("Error getting data from database");
+      res.send(err)
+    } else {
+      res.json(students); // return results
+    }
+  });
+};
