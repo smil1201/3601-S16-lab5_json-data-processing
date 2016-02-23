@@ -112,3 +112,14 @@ exports.getABC = function(req, res) {
     }
   });
 };
+
+exports.getFirstABC = function(req, res) {
+  Student.find({}, null, {skip: 0, limit:30, sort:{firstName: 1}},  function (err, students) {
+    if (err) {
+      console.log("Error getting data from database");
+      res.send(err)
+    } else {
+      res.json(students); // return results
+    }
+  });
+};

@@ -13,11 +13,14 @@
 
   <br>
       <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary" ng-click="student.getABC()">Sort alphabetically</button>
+        <button type="submit" class="btn btn-primary" ng-click="student.getABC()">Sort by last name</button>
+        <button type="submit" class="btn btn-primary" ng-click="student.getFirstABC()">Sort by first name</button>
         <button type="submit" class="btn btn-primary" ng-click="student.DOBSort()">Sort by date of birth</button>
         <button type="submit" class="btn btn-primary" ng-click="student.MajorsSort()">Sort by major</button>
       </span>
 </div>
+
+
 
 
 
@@ -36,7 +39,7 @@
   <p class="input-group">
 
     <select name="focus">
-      <option value="Last Name">Last Name</option>
+      <option value="student.getABC">Last Name</option>
       <option value="First Name">First Name</option>
       <option value="Date of Birth">Date of Birth</option>
       <option value="Completed Credits">    $scope.state = "abc"Completed Credits</option>

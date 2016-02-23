@@ -7,6 +7,8 @@ angular.module('3601S16Lab5JsonDataProcessingApp')
 
     this.getABC = function () {
       $scope.students = Student.query({id: 'getABC'});
-
+    };
+    this.getFirstABC = function () {
+      $scope.students = Student.query({id: 'getFirstABC'});
     };
   });
