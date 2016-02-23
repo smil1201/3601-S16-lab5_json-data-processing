@@ -18,6 +18,15 @@
         <button type="submit" class="btn btn-primary" ng-click="student.getDOB()">Sort by date of birth</button>
         <button type="submit" class="btn btn-primary" ng-click="student.getMajors()">Sort by primary major</button>
         <button type="submit" class="btn btn-primary" ng-click="student.getCredits()">Sort by completed credits</button>
+        <br>
+        <hr>
+
+        <p class="input-group">
+          <input type="text" style="width: 500px" class="form-control" placeholder="Search by student" ng-model="student.studentDetails">
+          <span>
+            <button type="submit"  class="btn btn-primary" ng-click="student.studentDetails()">Show student details</button>
+          </span>
+        </p>
       </span>
 </div>
 
