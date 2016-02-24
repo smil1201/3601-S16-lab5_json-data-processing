@@ -101,7 +101,10 @@ export function destroy(req, res) {
     .catch(handleError(res));
 }
 
+//our functions
 
+
+//sorts alphabetically by last name
 exports.getABC = function(req, res) {
   Student.find({}, null, {skip: 0, limit:30, sort:{lastName: 1}},  function (err, students) {
     if (err) {
@@ -112,6 +115,19 @@ exports.getABC = function(req, res) {
     }
   });
 };
+
+//sorts alphabetically by first name
+exports.getFirstABC = function(req, res) {
+  Student.find({}, null, {skip: 0, limit:30, sort:{firstName: 1}},  function (err, students) {
+    if (err) {
+      console.log("Error getting data from database");
+      res.send(err)
+    } else {
+      res.json(students); // return results
+    }
+  });
+};
+
 
 //sorts by date of birth
 exports.getDOB = function(req, res) {
@@ -139,52 +155,51 @@ exports.getMajors = function(req, res) {
 
 
 //helper function to calculate credit number
-exports.getCreditsValue = function(student) {
-  var completedCredits = 0;
-  var students = Student.query();
+var getCreditsValue = function(students) {
+  var completedCredits = [];
   for (var i = 0; i < students.length; i++) {
     var courses = students[i].courses;
+    completedCredits[i] = {key: students[i].id, val: 0};
     for (var j = 0; j < courses.length; j++) {
-      if(courses[j].grade == "F") {
-
+      if (courses[j].grade == "F") {
       } else {
-        completedCredits += courses[j].course.credits;
+        completedCredits[i].val += courses[j].course.credits;
       }
     }
   }
+  return completedCredits;
 
 };
 
-//in progress not done yet
+//complicated but working completed credit sort
 exports.getCredits = function(req, res) {
-  Student.find({}, null, {skip: 0, limit:0, sort:{major1: 1, major2:1}},  function (err, students) {
-    if (err) {
-      console.log("Error getting majors from database");
-      res.send(err)
-    } else {
-      res.json(students); // return results
+  var sortedData = [];
+  Student.find({}, function(err, data) {
+    var courseValue = getCreditsValue(data);
+    var sorted = courseValue.slice(0).sort(function(a,b) {
+      return a.val - b.val;
+    });
+
+    for(var i = 0; i < sorted.length; i++) {
+      for(var j = 0; j < data.length; j++) {
+        if(sorted[i].key == data[j].id) {
+          sortedData[i] = data[j];
+        }
+      }
     }
+    res.json(sortedData);
   });
 };
 
-exports.getFirstABC = function(req, res) {
-  Student.find({}, null, {skip: 0, limit:30, sort:{firstName: 1}},  function (err, students) {
-    if (err) {
-      console.log("Error getting data from database");
-      res.send(err)
-    } else {
-      res.json(students); // return results
-    }
-  });
-};
-
- exports.getMajor = function(req, res) {
-   Student.find({}, null, {skip: 0, limit:30, sort:{major1: 1}},  function (err, students) {
-     if (err) {
-       console.log("Error getting data from database");
-       res.send(err)
-     } else {
-       res.json(students); // return results
-     }
-   });
-};
+//what sort by completed credits should sort
+/*{ key: 'Kristi', val: 44 },
+{ key: 'Baldwin', val: 49 },
+{ key: 'Kathy', val: 50 },
+{ key: 'Love', val: 55 },
+{ key: 'Hahn', val: 55 },
+{ key: 'Ferrell', val: 56 },
+{ key: 'Hilary', val: 57 },
+{ key: 'Ethel', val: 59 },
+{ key: 'Parks', val: 62 },
+{ key: 'Barron', val: 63 } ]
+*/
