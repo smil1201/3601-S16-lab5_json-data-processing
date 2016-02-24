@@ -27,4 +27,9 @@ angular.module('3601S16Lab5JsonDataProcessingApp')
 
     };
 
+    //this.getStudentDetails = function () {
+      //$scope.students = Student.query({id: 'getStudentDetails'});
+
+    //};
+
   });

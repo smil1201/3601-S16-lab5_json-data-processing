@@ -128,6 +128,19 @@ exports.getFirstABC = function(req, res) {
   });
 };
 
+/*
+exports.getFullName = function(req, res){
+  Student.find({}, null, {skip:0, limit:0, sort:{firstName: 1, lastName: 1}}, function(err, students){
+    if(err) {
+      console.log("Error getting data from database");
+      res.send(err)
+    } else{
+      res.json(students);
+    }
+  });
+};
+*/
+
 
 //sorts by date of birth
 exports.getDOB = function(req, res) {
@@ -153,6 +166,14 @@ exports.getMajors = function(req, res) {
   });
 };
 
+/*
+var getFullName = function(students) {
+  var myName = [];
+  for(var i = 0; i < students.length; i++){
+    myName = students[i].getStudentDetails();
+  }
+  return myName;
+};*/
 
 //helper function to calculate credit number
 var getCreditsValue = function(students) {
@@ -168,7 +189,7 @@ var getCreditsValue = function(students) {
     }
   }
   return completedCredits;
-
+getFirstABC
 };
 
 //complicated but working completed credit sort
@@ -190,6 +211,15 @@ exports.getCredits = function(req, res) {
     res.json(sortedData);
   });
 };
+
+/*
+
+  var detailedData = [];
+  Student.find({}, function(err, data) {
+    var studentName = getFullName(data);
+    var myName =
+  })
+};*/
 
 //what sort by completed credits should sort
 /*{ key: 'Kristi', val: 44 },
