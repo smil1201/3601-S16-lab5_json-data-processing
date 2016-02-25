@@ -199,13 +199,14 @@ var getCreditsValue = function(students) {
     completedCredits[i] = {key: students[i].id, val: 0};
     for (var j = 0; j < courses.length; j++) {
       if (courses[j].grade == "F") {
-      } else {
+      }
+      else if (courses[j].grade == "IP") {
+      }else {
         completedCredits[i].val += courses[j].course.credits;
       }
     }
   }
   return completedCredits;
-
 };
 
 //complicated but working completed credit sort
@@ -268,7 +269,11 @@ var getTotalCredits = function(students) {
     var courses = students[i].courses;
     totalCredits[i] = {key: students[i].id, val: 0};
     for (var j = 0; j < courses.length; j++) {
+      if (courses[j].grade == "IP") {
+      } else {
         totalCredits[i].val += courses[j].course.credits;
+      }
+      console.log(totalCredits[i])
     }
   }
   return totalCredits;
@@ -282,47 +287,73 @@ var getGPAValue = function(students) {
   for (var i = 0; i < students.length; i++) {
     var courses = students[i].courses;
     credits[i] = {key: students[i].id, val: 0};
+    grade[i] = {key: students[i].id, val: 0};
+    gradePoints[i] = {key: students[i].id, val: 0};
+
+    for (var l = 0; l < courses.length; l++) {
+      credits[i].val += courses[l].course.credits;
+      console.log("got to " + credits[i].val);
+    }
+
     for (var j = 0; j < courses.length; j++) {
       if (courses[j].grade == "F") {
-        grade[j] = 0.00
+        grade[j].val += 0.00;
       }
       else if (courses[j].grade == "D") {
-        grade[j] = 1.00
+        console.log("got to grade" + j);
+        console.log("got to grade" + grade[1]);
+        console.log("got to grade" + grade[0].val);
+        console.log("got to grade" + grade[0].key);
+
+
+        grade[j].val += 1.00;
       }
       else if (courses[j].grade == "C") {
-        grade[j] = 2.00
+        grade[j].val += 2.00;
       }
       else if (courses[j].grade == "B") {
-        grade[j] = 3.00
+        grade[j].val += 3.00;
       }
       else if (courses[j].grade == "A") {
-        grade[j] = 4.00
+        grade[j].val += 4.00;
       }
     }
   }
+
   for (var k = 0; k < courses.length; k++) {
-          credits[i].val += courses[j].course.credits;
+          gradePoints[k].val = grade[k].val * credits[k].val;
       }
-  }
-
-  
-  return completedCredits;
-
-};
+  return gradePoints;
+  };
 
 //complicated but working completed credit sort
 exports.getGPA = function(req, res) {
-  var sortedData = [];
-  Student.find({}, function(err, data) {
-    var courseValue = getCreditsValue(data);
-    var sorted = courseValue.slice(0).sort(function(a,b) {
-      return a.val - b.val;
-    });
-
+  var studentGPA = [];
+  Student.find({}, null, {skip: 0, limit:30, sort:{firstName: 1}},  function (err, data) {
+    var totalCredits = getTotalCredits(data);
+    console.log("bananas" + totalCredits[0])
+    var gpaValue = getGPAValue(data);
+   /* for(var i = 0; i < gpaValue.length; i++){
+      studentGPA[i] = gpaValue[i].val / totalCredits[i].val
+    }*/
+    console.log("got to studentGPA" + studentGPA);
     for(var i = 0; i < sorted.length; i++) {
       for(var j = 0; j < data.length; j++) {
         if(sorted[i].key == data[j].id) {
-          sortedData[i] = data[j];
+          sortedData[i] = {};
+
+          //sortedData[i] = data[j];
+          sortedData[i]['firstName'] = data[j]['firstName'];
+          sortedData[i]['lastName'] = data[j]['lastName'];
+          sortedData[i]['courses'] = data[j]['courses'];
+          sortedData[i]['dateOfBirth'] = data[j]['dateOfBirth'];
+          sortedData[i]['gender'] = data[j]['gender'];
+          sortedData[i]['email'] = data[j]['email'];
+          sortedData[i]['phone'] = data[j]['phone'];
+          sortedData[i]['address'] = data[j]['address'];
+          sortedData[i]['major1'] = data[j]['major1'];
+          sortedData[i]['major2'] = data[j]['major2'];
+          sortedData[i]['creds'] = sorted[i].val;
         }
       }
     }
