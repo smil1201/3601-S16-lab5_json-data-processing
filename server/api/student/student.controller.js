@@ -262,6 +262,17 @@ exports.getCredits = function(req, res) {
 
 
 
+var getTotalCredits = function(students) {
+  var totalCredits = [];
+  for (var i = 0; i < students.length; i++) {
+    var courses = students[i].courses;
+    totalCredits[i] = {key: students[i].id, val: 0};
+    for (var j = 0; j < courses.length; j++) {
+        totalCredits[i].val += courses[j].course.credits;
+    }
+  }
+  return totalCredits;
+};
 
 //helper function to calculate credit number
 var getGPAValue = function(students) {
@@ -275,28 +286,26 @@ var getGPAValue = function(students) {
       if (courses[j].grade == "F") {
         grade[j] = 0.00
       }
-      else if(courses[j].grade == "D"){
+      else if (courses[j].grade == "D") {
         grade[j] = 1.00
       }
-      else if(courses[j].grade == "C"){
+      else if (courses[j].grade == "C") {
         grade[j] = 2.00
       }
-      else if(courses[j].grade == "B"){
+      else if (courses[j].grade == "B") {
         grade[j] = 3.00
       }
-      else if(courses[j].grade == "A"){
+      else if (courses[j].grade == "A") {
         grade[j] = 4.00
       }
     }
-
-      for (var k = 0; k < courses.length; k++) {
+  }
+  for (var k = 0; k < courses.length; k++) {
           credits[i].val += courses[j].course.credits;
       }
-    for(var l = 0; l < courses.length; l++){
-
   }
 
-  }
+  
   return completedCredits;
 
 };
@@ -320,28 +329,6 @@ exports.getGPA = function(req, res) {
     res.json(sortedData);
   });
 };
-
-var gradeConversion=function(grade){
-  if (grade == "A" || grade == "a") {
-    return 4;
-  }
-  else if (grade == "B"|| grade == "b") {
-    return 3;
-  }
-  else if (grade == "C"|| grade == "c") {
-    return 2;
-  }
-  else if (grade == "D"|| grade == "d") {
-    return 1;
-  }
-  else if (grade == "F"|| grade == "f") {
-    return 0;
-  }
-  else{
-    return "ERROR Enter a real grade."
-  }
-};
-
 
 
 var calculator = function(dataArray) {
