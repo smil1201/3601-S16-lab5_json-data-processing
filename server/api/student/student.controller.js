@@ -220,13 +220,48 @@ exports.getCredits = function(req, res) {
     for(var i = 0; i < sorted.length; i++) {
       for(var j = 0; j < data.length; j++) {
         if(sorted[i].key == data[j].id) {
-          sortedData[i] = data[j];
+          sortedData[i] = {};
+
+          //sortedData[i] = data[j];
+          sortedData[i]['firstName'] = data[j]['firstName'];
+          sortedData[i]['lastName'] = data[j]['lastName'];
+          sortedData[i]['courses'] = data[j]['courses'];
+          sortedData[i]['dateOfBirth'] = data[j]['dateOfBirth'];
+          sortedData[i]['gender'] = data[j]['gender'];
+          sortedData[i]['email'] = data[j]['email'];
+          sortedData[i]['phone'] = data[j]['phone'];
+          sortedData[i]['address'] = data[j]['address'];
+          sortedData[i]['major1'] = data[j]['major1'];
+          sortedData[i]['major2'] = data[j]['major2'];
+          sortedData[i]['creds'] = sorted[i].val;
         }
       }
     }
     res.json(sortedData);
   });
 };
+
+
+
+//what sort by completed credits should sort
+/*{ key: 'Kristi', val: 44 },
+ { key: 'Baldwin', val: 49 },
+ { key: 'Kathy', val: 50 },
+ { key: 'Love', val: 55 },
+ { key: 'Hahn', val: 55 },
+ { key: 'Ferrell', val: 56 },
+ { key: 'Hilary', val: 57 },
+ { key: 'Ethel', val: 59 },
+ { key: 'Parks', val: 62 },
+ { key: 'Barron', val: 63 } ]
+ */
+
+
+
+
+
+
+
 
 //helper function to calculate credit number
 var getGPAValue = function(students) {
@@ -313,20 +348,20 @@ var calculator = function(dataArray) {
   if (dataArray.length >= 1) {
     var i;
     var gpa = 0;
-    var totalCredits = 0;
+    var totalCreditscreds = 0;
     for (i = 0; i < dataArray.length; i++) {
       if(self.gradeConversion(dataArray[i].grade) == "ERROR Enter a real grade."){
         return "ERROR Enter a real grade and remove non-real grade.";
       }
       gpa += self.gradeConversion(dataArray[i].grade) *parseInt(dataArray[i].credit);
-      totalCredits += parseInt(dataArray[i].credit);
+     // totalCredits += parseInt(dataArray[i].credit);
     }
     return (gpa/totalCredits).toFixed(2);
   }
   else {
     return ""
   }
-}
+};
 
 
 

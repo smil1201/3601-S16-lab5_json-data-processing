@@ -39,8 +39,6 @@
 
 
 
-
-
       this.getCreditsValue = function () {
         var completedCredits = 0;
         for (var i = 0; i < Student.length; i++) {
@@ -102,4 +100,4 @@
 
     //};
 
-  });
+ // });
