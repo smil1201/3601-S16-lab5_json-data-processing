@@ -1,4 +1,23 @@
-<div>This is the student.detail view.</div>
+ <div>This is the student.detail view.</div>
 <a ui-sref="student.detail({ id: student._id })">
   {{ student.firstName }} {{ student.lastName }}
 </a>
+ </div>
+
+
+ <div>
+  <form>
+    <input type="text" style="width: 250px" placeholder="Show student details" required>
+    <input type="button" value="search" ng-click="student.studentDetails()">
+
+    <!--  <button type="submit" class="btn btn-primary" ng-click="student.studentDetails()">Search</button>-->
+  </form>
+  <!--  <table>
+      <tr>
+        <td>{{students[num].firstName}}
+          {{students[num].lastName}}</td>
+        <td>{{students[num].dateOfBirth}}</td>
+      </tr>
+    </table>-->
+
+</div>
