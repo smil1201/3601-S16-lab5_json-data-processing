@@ -273,7 +273,6 @@ var getTotalCredits = function(students) {
       } else {
         totalCredits[i].val += courses[j].course.credits;
       }
-      console.log(totalCredits[i])
     }
   }
   return totalCredits;
@@ -292,7 +291,6 @@ var getGPAValue = function(students) {
 
     for (var l = 0; l < courses.length; l++) {
       credits[i].val += courses[l].course.credits;
-      console.log("got to " + credits[i].val);
     }
 
     for (var j = 0; j < courses.length; j++) {
@@ -300,12 +298,6 @@ var getGPAValue = function(students) {
         grade[j].val += 0.00;
       }
       else if (courses[j].grade == "D") {
-        console.log("got to grade" + j);
-        console.log("got to grade" + grade[1]);
-        console.log("got to grade" + grade[0].val);
-        console.log("got to grade" + grade[0].key);
-
-
         grade[j].val += 1.00;
       }
       else if (courses[j].grade == "C") {
@@ -326,12 +318,106 @@ var getGPAValue = function(students) {
   return gradePoints;
   };
 
+
+
+
+var getStuTotCred = function(student) {
+  var totalCredits = 0;
+    for (var j = 0; j < student.courses.length; j++) {
+      if (student.courses[j].grade == "IP") {
+      } else {
+        totalCredits += parseInt(student.courses[j].course.credits);
+      }
+    }
+  return totalCredits;
+};
+
+var getStuCourseCred = function(student) {
+  var credits = [];
+  for (var j = 0; j < student.courses.length; j++) {
+    if (student.courses[j].grade == "IP") {
+      credits[j] = 0
+    } else {
+      credits[j] = student.courses[j].course.credits;
+    }
+  }
+  return credits;
+};
+
+var studentGradePoints = function(student) {
+  var grade = [];
+  for (var j = 0; j < student.courses.length; j++) {
+    if (student.courses[j].grade == "F") {
+      grade[j] = 0.00;
+    }
+    else if (student.courses[j].grade == "D") {
+      grade[j] = 1.00;
+    }
+    else if (student.courses[j].grade == "C") {
+      grade[j] = 2.00;
+    }
+    else if (student.courses[j].grade == "B") {
+      grade[j] = 3.00;
+    }
+    else if (student.courses[j].grade == "A") {
+      grade[j] = 4.00;
+    }
+    else {
+      grade[j] = 0.00;
+    }
+  }
+  return grade;
+};
+
+var getStudentGPA = function(student){
+  var totalCredits = [];
+  var totalGradePoints = [];
+  var credits = [];
+  var studentGPA = 0;
+  var gradePoints = 0;
+  credits = getStuCourseCred(student);
+  totalCredits = getStuTotCred(student);
+  totalGradePoints = studentGradePoints(student);
+  for(var i=0; i<credits.length; i++){
+    gradePoints += parseInt(credits[i]) * parseInt(totalGradePoints[i])
+  }
+  studentGPA = (gradePoints/totalCredits);
+  return parseFloat(studentGPA.toFixed(2))
+};
+
+exports.getAllStuGPA = function(reg, res) {
+  var studentGPA = [];
+  var GPAAdded = [];
+  Student.find({}, null, {skip: 0, limit:30, sort:{lastName: 1}},  function (err, data) {
+    for (var i = 0; i < data.length; i++) {
+      studentGPA[i] = {key: data[i].id, val: 0};
+      studentGPA[i].val += getStudentGPA(data[i]);
+      GPAAdded[i] = {};
+      GPAAdded[i]['firstName'] = data[i]['firstName'];
+      GPAAdded[i]['lastName'] = data[i]['lastName'];
+      GPAAdded[i]['courses'] = data[i]['courses'];
+      GPAAdded[i]['dateOfBirth'] = data[i]['dateOfBirth'];
+      GPAAdded[i]['gender'] = data[i]['gender'];
+      GPAAdded[i]['email'] = data[i]['email'];
+      GPAAdded[i]['phone'] = data[i]['phone'];
+      GPAAdded[i]['address'] = data[i]['address'];
+      GPAAdded[i]['major1'] = data[i]['major1'];
+      GPAAdded[i]['major2'] = data[i]['major2'];
+      GPAAdded[i]['GPA'] = studentGPA[i].val;
+
+      }
+  res.json(GPAAdded);
+});
+};
+
+
+
 //complicated but working completed credit sort
 exports.getGPA = function(req, res) {
   var studentGPA = [];
   Student.find({}, null, {skip: 0, limit:30, sort:{firstName: 1}},  function (err, data) {
     var totalCredits = getTotalCredits(data);
-    console.log("bananas" + totalCredits[0])
+    console.log("bananas" + totalCredits[0]);
     var gpaValue = getGPAValue(data);
    /* for(var i = 0; i < gpaValue.length; i++){
       studentGPA[i] = gpaValue[i].val / totalCredits[i].val

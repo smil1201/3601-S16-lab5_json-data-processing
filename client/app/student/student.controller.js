@@ -32,6 +32,11 @@
 
       };
 
+      this.getAllStuGPA = function () {
+        $scope.students = Student.query({id: 'getAllStuGPA'});
+
+      };
+
       this.studentDetails = function () {
         $scope.students = Student.query({id: 'studentDetails'});
       };
