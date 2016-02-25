@@ -250,82 +250,6 @@ exports.getCredits = function(req, res) {
   });
 };
 
-//what sort by completed credits should sort
-/*{ key: 'Kristi', val: 44 },
- { key: 'Baldwin', val: 49 },
- { key: 'Kathy', val: 50 },
- { key: 'Love', val: 55 },
- { key: 'Hahn', val: 55 },
- { key: 'Ferrell', val: 56 },
- { key: 'Hilary', val: 57 },
- { key: 'Ethel', val: 59 },
- { key: 'Parks', val: 62 },
- { key: 'Barron', val: 63 } ]
- */
-
-
-
-
-
-
-
-var getTotalCredits = function(students) {
-  var totalCredits = [];
-  for (var i = 0; i < students.length; i++) {
-    var courses = students[i].courses;
-    totalCredits[i] = {key: students[i].id, val: 0};
-    for (var j = 0; j < courses.length; j++) {
-      if (courses[j].grade == "IP") {
-      } else {
-        totalCredits[i].val += courses[j].course.credits;
-      }
-    }
-  }
-  return totalCredits;
-};
-
-//helper function to calculate credit number
-var getGPAValue = function(students) {
-  var credits = [];
-  var grade = [];
-  var gradePoints = [];
-  for (var i = 0; i < students.length; i++) {
-    var courses = students[i].courses;
-    credits[i] = {key: students[i].id, val: 0};
-    grade[i] = {key: students[i].id, val: 0};
-    gradePoints[i] = {key: students[i].id, val: 0};
-
-    for (var l = 0; l < courses.length; l++) {
-      credits[i].val += courses[l].course.credits;
-    }
-
-    for (var j = 0; j < courses.length; j++) {
-      if (courses[j].grade == "F") {
-        grade[j].val += 0.00;
-      }
-      else if (courses[j].grade == "D") {
-        grade[j].val += 1.00;
-      }
-      else if (courses[j].grade == "C") {
-        grade[j].val += 2.00;
-      }
-      else if (courses[j].grade == "B") {
-        grade[j].val += 3.00;
-      }
-      else if (courses[j].grade == "A") {
-        grade[j].val += 4.00;
-      }
-    }
-  }
-
-  for (var k = 0; k < courses.length; k++) {
-          gradePoints[k].val = grade[k].val * credits[k].val;
-      }
-  return gradePoints;
-  };
-
-
-
 
 var getStuTotCred = function(student) {
   var totalCredits = 0;
@@ -418,71 +342,6 @@ exports.getAllStuGPA = function(reg, res) {
 
 
 
-//complicated but working completed credit sort
-exports.getGPA = function(req, res) {
-  var studentGPA = [];
-  Student.find({}, null, {skip: 0, limit:30, sort:{firstName: 1}},  function (err, data) {
-    var totalCredits = getTotalCredits(data);
-    console.log("bananas" + totalCredits[0]);
-    var gpaValue = getGPAValue(data);
-   /* for(var i = 0; i < gpaValue.length; i++){
-      studentGPA[i] = gpaValue[i].val / totalCredits[i].val
-    }*/
-    console.log("got to studentGPA" + studentGPA);
-    for(var i = 0; i < sorted.length; i++) {
-      for(var j = 0; j < data.length; j++) {
-        if(sorted[i].key == data[j].id) {
-          sortedData[i] = {};
-
-          //sortedData[i] = data[j];
-          sortedData[i]['firstName'] = data[j]['firstName'];
-          sortedData[i]['lastName'] = data[j]['lastName'];
-          sortedData[i]['courses'] = data[j]['courses'];
-          sortedData[i]['dateOfBirth'] = data[j]['dateOfBirth'];
-          sortedData[i]['gender'] = data[j]['gender'];
-          sortedData[i]['email'] = data[j]['email'];
-          sortedData[i]['phone'] = data[j]['phone'];
-          sortedData[i]['address'] = data[j]['address'];
-          sortedData[i]['major1'] = data[j]['major1'];
-          sortedData[i]['major2'] = data[j]['major2'];
-          sortedData[i]['creds'] = sorted[i].val;
-        }
-      }
-    }
-    res.json(sortedData);
-  });
-};
-
-
-var calculator = function(dataArray) {
-  if (dataArray.length >= 1) {
-    var i;
-    var gpa = 0;
-    var totalCreditscreds = 0;
-    for (i = 0; i < dataArray.length; i++) {
-      if(self.gradeConversion(dataArray[i].grade) == "ERROR Enter a real grade."){
-        return "ERROR Enter a real grade and remove non-real grade.";
-      }
-      gpa += self.gradeConversion(dataArray[i].grade) *parseInt(dataArray[i].credit);
-     // totalCredits += parseInt(dataArray[i].credit);
-    }
-    return (gpa/totalCredits).toFixed(2);
-  }
-  else {
-    return ""
-  }
-};
-
-
-
-
-
-
-
-
-
-
-
 /*
 
   var detailedData = [];
@@ -491,16 +350,3 @@ var calculator = function(dataArray) {
     var myName =
   })
 };*/
-
-//what sort by completed credits should sort
-/*{ key: 'Kristi', val: 44 },
-{ key: 'Baldwin', val: 49 },
-{ key: 'Kathy', val: 50 },
-{ key: 'Love', val: 55 },
-{ key: 'Hahn', val: 55 },
-{ key: 'Ferrell', val: 56 },
-{ key: 'Hilary', val: 57 },
-{ key: 'Ethel', val: 59 },
-{ key: 'Parks', val: 62 },
-{ key: 'Barron', val: 63 } ]
-*/

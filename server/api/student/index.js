@@ -12,7 +12,6 @@ router.get('/getMajors', controller.getMajors);
 router.get('/getCredits', controller.getCredits);
 router.get('/getFirstABC', controller.getFirstABC);
 //router.get('/getStudentDetails', controller.getStudentDetails);
-router.get('/getGPA', controller.getGPA);
 router.get('/getAllStuGPA', controller.getAllStuGPA);
 
 
