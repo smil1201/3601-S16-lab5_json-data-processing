@@ -145,18 +145,6 @@ exports.getFirstABC = function(req, res) {
   });
 };
 
-/*
-exports.getFullName = function(req, res){
-  Student.find({}, null, {skip:0, limit:0, sort:{firstName: 1, lastName: 1}}, function(err, students){
-    if(err) {
-      console.log("Error getting data from database");
-      res.send(err)
-    } else{
-      res.json(students);
-    }
-  });
-};
-*/
 
 //sorts by date of birth
 exports.getDOB = function(req, res) {
@@ -182,14 +170,34 @@ exports.getMajors = function(req, res) {
   });
 };
 
-/*
-var getFullName = function(students) {
-  var myName = [];
-  for(var i = 0; i < students.length; i++){
-    myName = students[i].getStudentDetails();
+
+
+exports.studentDetails = function(req, res) {
+  res.json(students[i].firstName);
+ /*
+  var output = "";
+  for (var i=0; i < student.length; i++){
+    if (err) {
+      console.log("Error getting majors from database");
+      res.send(err)
+    } else {
+      res.json(students[i].firstName); // return results
+    }
+    }
+  }*/
+};
+
+ /* Student.find({}, null, null, {skip:0, limit:0}, function(err, students) {
+  if (err) {
+    console.log("Error finding the student details");
+    res.send(err)
+  } else {
+    res.json(Student.findByIdAsync);
   }
-  return myName;
-};*/
+});
+}
+*/
+
 
 //helper function to calculate credit number
 var getCreditsValue = function(students) {
@@ -241,8 +249,6 @@ exports.getCredits = function(req, res) {
     res.json(sortedData);
   });
 };
-
-
 
 //what sort by completed credits should sort
 /*{ key: 'Kristi', val: 44 },

@@ -37,11 +37,9 @@
 
       };
 
-      this.studentDetails = function () {
+      /*this.studentDetails = function () {
         $scope.students = Student.query({id: 'studentDetails'});
-      };
-
-
+      };*/
 
 
       this.getCreditsValue = function () {
@@ -60,7 +58,6 @@
       };
 
      // $scope.credits = getCreditsValue();
-
 
     });
 
@@ -90,19 +87,10 @@
     });
 
 */
-
-
-
-
-
-
-
-
-
-
     //this.getStudentDetails = function () {
       //$scope.students = Student.query({id: 'getStudentDetails'});
 
     //};
 
  // });
+

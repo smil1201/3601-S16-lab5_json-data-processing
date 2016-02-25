@@ -30,22 +30,26 @@
             <button type="submit"  class="btn btn-primary" ng-click="student.getStudentDetails()">Show student details</button>
           </span>
         </p>-->
+
+
       </div>
+
+
   <form>
-    <input type="text" style="width: 250px" placeholder="Show student details" required>
-    <input type="button" value="search" ng-click="student.getStudentDetails()">
-  </form>
+     <input type="text" style="width: 250px" placeholder="Show student details" required>
+    <input type="button" value="search" ng-click="student.studentDetails()">
+     <!--  <button type="submit" class="btn btn-primary" ng-click="student.studentDetails()">Search</button>-->
 
-  <table>
-    <tr>
-      <td>{{students[num].firstName}}
-        {{students[num].lastName}}</td>
-      <td>{{students[num].dateOfBirth}}</td>
-    </tr>
-  </table>
+   </form>
+  <!--  <table>
+      <tr>
+        <td>{{students[num].firstName}}
+          {{students[num].lastName}}</td>
+        <td>{{students[num].dateOfBirth}}</td>
+      </tr>
+    </table>-->
+
 </div>
-
-
 
 
 
