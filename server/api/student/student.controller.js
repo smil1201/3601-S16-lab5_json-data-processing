@@ -104,6 +104,23 @@ export function destroy(req, res) {
 //our functions
 
 
+//student details in progress
+/*
+exports.studentDetails = function(req, res, student) {
+  var details = Student.findById(student)
+
+  Student.find({}, function(err, data) {
+    var courseValue = getCreditsValue(data);
+
+
+  Student.findByIdAsync(req.params.id)
+    .then(handleEntityNotFound(res))
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+};
+*/
+
+
 //sorts alphabetically by last name
 exports.getABC = function(req, res) {
   Student.find({}, null, {skip: 0, limit:30, sort:{lastName: 1}},  function (err, students) {
@@ -140,7 +157,6 @@ exports.getFullName = function(req, res){
   });
 };
 */
-
 
 //sorts by date of birth
 exports.getDOB = function(req, res) {
@@ -189,7 +205,7 @@ var getCreditsValue = function(students) {
     }
   }
   return completedCredits;
-getFirstABC
+
 };
 
 //complicated but working completed credit sort
@@ -211,6 +227,116 @@ exports.getCredits = function(req, res) {
     res.json(sortedData);
   });
 };
+
+//helper function to calculate credit number
+var getGPAValue = function(students) {
+  var credits = [];
+  var grade = [];
+  var gradePoints = [];
+  for (var i = 0; i < students.length; i++) {
+    var courses = students[i].courses;
+    credits[i] = {key: students[i].id, val: 0};
+    for (var j = 0; j < courses.length; j++) {
+      if (courses[j].grade == "F") {
+        grade[j] = 0.00
+      }
+      else if(courses[j].grade == "D"){
+        grade[j] = 1.00
+      }
+      else if(courses[j].grade == "C"){
+        grade[j] = 2.00
+      }
+      else if(courses[j].grade == "B"){
+        grade[j] = 3.00
+      }
+      else if(courses[j].grade == "A"){
+        grade[j] = 4.00
+      }
+    }
+
+      for (var k = 0; k < courses.length; k++) {
+          credits[i].val += courses[j].course.credits;
+      }
+    for(var l = 0; l < courses.length; l++){
+
+  }
+
+  }
+  return completedCredits;
+
+};
+
+//complicated but working completed credit sort
+exports.getGPA = function(req, res) {
+  var sortedData = [];
+  Student.find({}, function(err, data) {
+    var courseValue = getCreditsValue(data);
+    var sorted = courseValue.slice(0).sort(function(a,b) {
+      return a.val - b.val;
+    });
+
+    for(var i = 0; i < sorted.length; i++) {
+      for(var j = 0; j < data.length; j++) {
+        if(sorted[i].key == data[j].id) {
+          sortedData[i] = data[j];
+        }
+      }
+    }
+    res.json(sortedData);
+  });
+};
+
+var gradeConversion=function(grade){
+  if (grade == "A" || grade == "a") {
+    return 4;
+  }
+  else if (grade == "B"|| grade == "b") {
+    return 3;
+  }
+  else if (grade == "C"|| grade == "c") {
+    return 2;
+  }
+  else if (grade == "D"|| grade == "d") {
+    return 1;
+  }
+  else if (grade == "F"|| grade == "f") {
+    return 0;
+  }
+  else{
+    return "ERROR Enter a real grade."
+  }
+};
+
+
+
+var calculator = function(dataArray) {
+  if (dataArray.length >= 1) {
+    var i;
+    var gpa = 0;
+    var totalCredits = 0;
+    for (i = 0; i < dataArray.length; i++) {
+      if(self.gradeConversion(dataArray[i].grade) == "ERROR Enter a real grade."){
+        return "ERROR Enter a real grade and remove non-real grade.";
+      }
+      gpa += self.gradeConversion(dataArray[i].grade) *parseInt(dataArray[i].credit);
+      totalCredits += parseInt(dataArray[i].credit);
+    }
+    return (gpa/totalCredits).toFixed(2);
+  }
+  else {
+    return ""
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
 /*
 
