@@ -3,7 +3,7 @@
     <div class="col-lg-12">
       <h1 class="page-header">Student Sorting</h1>
       <table>
-        <tr ng-repeat="student in students">
+        <tr ng-repeat="student in students | orderBy: 'creds'">
           <td>{{ student.firstName }} {{ student.lastName }} </td>
           <td>{{student.dateOfBirth}}</td>
           <td>{{student.major1}} \\ {{student.major2}}</td>
@@ -38,20 +38,6 @@
   <ul ng-repeat="student in students2">
     <li>{{student.firstName}}  {{student.lastName}}</li>
     </ul>
-
-
-  <h1>Filter Students By Year (Freshman, Sophomore, Junior, Senior)</h1>
-  <div>
-    <p class="input-group">
-      <input type="text" style="width: 500px" class="form-control" placeholder="Search for Student by Course" ng-model = "studentYear">
-      <button type="submit" class="btn btn-primary" ng-click="student.findStudentByYear()" >Show students</button>
-          <span>
-          </span>
-    </p>
-  </div>
-  <ul ng-repeat="student in students3">
-    <li>{{student.firstName}}  {{student.lastName}}</li>
-  </ul>
 
 
 

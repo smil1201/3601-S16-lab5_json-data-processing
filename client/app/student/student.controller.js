@@ -8,17 +8,10 @@
 
       $scope.students2 = Student.query();
 
-      $scope.students3 = Student.query();
 
       this.findStudentByCourse = function(){
         Student.query({courseName: $scope.studentCourse, id: 'findStudentByCourse'}, function(student){
           $scope.students2 = student;
-        })
-      };
-
-      this.findStudentByYear = function(){
-        Student.query({year: $scope.studentYear, id: 'findStudentByYear'}, function(student){
-          $scope.students3 = student;
         })
       };
 

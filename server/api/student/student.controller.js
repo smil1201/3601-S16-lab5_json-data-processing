@@ -333,8 +333,8 @@ var studentRank = function(student){
 exports.getStudentRank = function(reg, res){
   var studentClass = [];
   var rankAdded = [];
-  Student.find({}, null, {skip: 0, limit:30, sort:{lastName: 1}},  function (err, data) {
-    var courseValue = getCreditsValue(data);
+  Student.find({},  function (err, data) {
+    var courseValue = getTotalCredits(data);
     for (var i = 0; i < data.length; i++) {
       studentClass[i] = {val: ""};
       studentClass[i].val = studentRank(data[i]);
@@ -356,3 +356,22 @@ exports.getStudentRank = function(reg, res){
     res.json(rankAdded);
   });
 };
+
+
+var getTotalCredits = function(students) {
+  var completedCredits = [];
+  for (var i = 0; i < students.length; i++) {
+    var courses = students[i].courses;
+    completedCredits[i] = {key: students[i].id, val: 0};
+    for (var j = 0; j < courses.length; j++) {
+      if (courses[j].grade == "IP") {
+      }else {
+        completedCredits[i].val += courses[j].course.credits;
+      }
+    }
+  }
+  return completedCredits;
+};
+
+
+
