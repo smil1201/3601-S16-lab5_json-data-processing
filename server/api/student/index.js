@@ -13,6 +13,7 @@ router.get('/getCredits', controller.getCredits);
 router.get('/getFirstABC', controller.getFirstABC);
 router.get('/getAllStuGPA', controller.getAllStuGPA);
 router.get('/getStudentRank', controller.getStudentRank);
+router.get('/findStudentByCourse', controller.findStudentByCourse);
 
 
 

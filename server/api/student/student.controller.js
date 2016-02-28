@@ -170,6 +170,17 @@ exports.getMajors = function(req, res) {
   });
 };
 
+exports.findStudentByCourse = function(req, res, studentCourse) {
+  console.log('banana' + studentCourse);
+  Student.find({'courses.course.name':studentCourse}, null, {skip: 0, limit:30, sort:{}},  function (err, students) {
+    if (err) {
+      console.log("Error getting data from database");
+      res.send(err)
+    } else {
+      res.json(students); // return results
+    }
+  });
+};
 
 
 
@@ -327,7 +338,7 @@ var studentRank = function(student){
     studentClass = "Freshman";
   }
   else if(completedCredits >= 30 && completedCredits < 60){
-    studentClass = "Sophmore";
+    studentClass = "Sophomore";
   }
   else if(completedCredits >= 60 && completedCredits < 90){
     studentClass = "Junior";

@@ -5,6 +5,9 @@
 
       $scope.students = Student.query();
 
+      this.findStudentByCourse = function(){
+        $scope.studentCourse = Student.query({id: 'findStudentByCourse'});
+      };
 
       this.getABC = function () {
         $scope.students = Student.query({id: 'getABC'});
@@ -39,52 +42,15 @@
 
       };
 
-
       $scope.expand = function(student){
         student.show = !student.show;
       };
 
-      /*this.studentDetails = function () {
-        $scope.students = Student.query({id: 'studentDetails'});
-      };*/
+      $scope.expandDetails = function(student){
+        student.show = !student.show;
+      };
 
 
-
-
-     // $scope.credits = getCreditsValue();
 
     });
-
-
-/*
-    .controller('CreditCtrl', function ($scope, Student) {
-          $scope.data = [{fruit: 'banana'},{fruit: 'tomato'}];
-
-        function getCreditsValue(){
-          var completedCredits = 0;
-          for (var i = 0; i < Student.length; i++) {
-            var courses = Student[i].courses;
-            completedCredits[i] = {key: Student[i].id, val: 0};
-            for (var j = 0; j < courses.length; j++) {
-              if (courses[j].grade == "F") {
-              } else {
-                completedCredits[i].val += courses[j].course.credits;
-              }
-            }
-          }
-          return completedCredits;
-        }
-
-      //this.credits = function(){
-        $scope.students = getCreditsValue()
-      }
-    });
-
-*/
-    //this.getStudentDetails = function () {
-      //$scope.students = Student.query({id: 'getStudentDetails'});
-
-    //};
-
- // });
 
