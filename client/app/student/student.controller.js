@@ -5,6 +5,7 @@
 
       $scope.students = Student.query();
 
+
       this.getABC = function () {
         $scope.students = Student.query({id: 'getABC'});
       };

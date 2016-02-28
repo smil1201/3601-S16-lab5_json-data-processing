@@ -39,12 +39,19 @@
     <li class = "name">{{student.firstName}} {{student.lastName}}</li>
     <li ng-show = "student.show">
   <ul>
-    <li>Gender: {{student.gender}}</li>
-    <li>Date of Birth: {{student.dateOfBirth}}</li>
-    <li>Email: {{student.email}}</li>
-    <li>Phone Number: {{student.phone}}</li>
-    <li>Address: {{student. address}}</li>
-    </ul>
+    <li><b>Gender:</b> {{student.gender}}</li>
+    <li><b>Date of</b> Birth: {{student.dateOfBirth}}</li>
+    <li><b>Email:</b> {{student.email}}</li>
+    <li><b>Phone Number:</b> {{student.phone}}</li>
+    <li><b>Address:</b> {{student. address}}</li>
+    <li><b>Courses:</b></li>
+    <ul ng-repeat = "course in student.courses">
+      <li>{{course.course.name}}</li>
+      <ul>
+        <li><b>Grade:</b> {{course.grade}}</li>
+        </ul>
+      </ul>
+  </ul>
     </li>
 </ul>
 </div>
