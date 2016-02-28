@@ -37,25 +37,16 @@
 
       };
 
+      $scope.expand = function(student){
+        student.show = !student.show;
+      };
+
       /*this.studentDetails = function () {
         $scope.students = Student.query({id: 'studentDetails'});
       };*/
 
 
-      this.getCreditsValue = function () {
-        var completedCredits = 0;
-        for (var i = 0; i < Student.length; i++) {
-          var courses = Student[i].courses;
-          completedCredits[i] = {key: Student[i].id, val: 0};
-          for (var j = 0; j < courses.length; j++) {
-            if (courses[j].grade == "F") {
-            } else {
-              completedCredits[i].val += courses[j].course.credits;
-            }
-          }
-        }
-        $scope.students = completedCredits;
-      };
+
 
      // $scope.credits = getCreditsValue();
 

@@ -3,3 +3,8 @@ table, th , td  {
   border-collapse: collapse;
   padding: 5px;
 }
+
+ul {
+  clear: both;
+  list-style-type: none;
+}
