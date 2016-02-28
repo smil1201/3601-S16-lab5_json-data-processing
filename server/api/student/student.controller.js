@@ -155,7 +155,7 @@ exports.getMajors = function(req, res) {
 };
 
 exports.findStudentByCourse = function(req, res) {
-  Student.find({'courses.course.name': req.query['courseName']}, null, {skip: 0, limit:30, sort:{}}, function (err, student) {
+  Student.find({'courses.course.name': req.query.courseName}, null, {skip: 0, limit:30, sort:{}}, function (err, student) {
     if (err) {
       res.send(err)
     } else {
@@ -194,21 +194,21 @@ exports.getCredits = function(req, res) {
 
     for(var i = 0; i < sorted.length; i++) {
       for(var j = 0; j < data.length; j++) {
-        if(sorted[i].key == data[j].id) {
+        if(sorted[i].key === data[j].id) {
           sortedData[i] = {};
 
           //sortedData[i] = data[j];
-          sortedData[i]['firstName'] = data[j]['firstName'];
-          sortedData[i]['lastName'] = data[j]['lastName'];
-          sortedData[i]['courses'] = data[j]['courses'];
-          sortedData[i]['dateOfBirth'] = data[j]['dateOfBirth'];
-          sortedData[i]['gender'] = data[j]['gender'];
-          sortedData[i]['email'] = data[j]['email'];
-          sortedData[i]['phone'] = data[j]['phone'];
-          sortedData[i]['address'] = data[j]['address'];
-          sortedData[i]['major1'] = data[j]['major1'];
-          sortedData[i]['major2'] = data[j]['major2'];
-          sortedData[i]['creds'] = sorted[i].val;
+          sortedData[i].firstName = data[j].firstName;
+          sortedData[i].lastName = data[j].lastName;
+          sortedData[i].courses = data[j].courses;
+          sortedData[i].dateOfBirth = data[j].dateOfBirth;
+          sortedData[i].gender = data[j].gender;
+          sortedData[i].email = data[j].email;
+          sortedData[i].phone = data[j].phone;
+          sortedData[i].address = data[j].address;
+          sortedData[i].major1 = data[j].major1;
+          sortedData[i].major2 = data[j].major2;
+          sortedData[i].creds = sorted[i].val;
         }
       }
     }
@@ -290,18 +290,18 @@ exports.getAllStuGPA = function(reg, res) {
       studentGPA[i] = {key: data[i].id, val: 0};
       studentGPA[i].val += getStudentGPA(data[i]);
       GPAAdded[i] = {};
-      GPAAdded[i]['firstName'] = data[i]['firstName'];
-      GPAAdded[i]['lastName'] = data[i]['lastName'];
-      GPAAdded[i]['courses'] = data[i]['courses'];
-      GPAAdded[i]['dateOfBirth'] = data[i]['dateOfBirth'];
-      GPAAdded[i]['gender'] = data[i]['gender'];
-      GPAAdded[i]['email'] = data[i]['email'];
-      GPAAdded[i]['phone'] = data[i]['phone'];
-      GPAAdded[i]['address'] = data[i]['address'];
-      GPAAdded[i]['major1'] = data[i]['major1'];
-      GPAAdded[i]['major2'] = data[i]['major2'];
-      GPAAdded[i]['creds'] = courseValue[i].val;
-      GPAAdded[i]['GPA'] = studentGPA[i].val;
+      GPAAdded[i].firstName = data[i].firstName;
+      GPAAdded[i].lastName = data[i].lastName;
+      GPAAdded[i].courses = data[i].courses;
+      GPAAdded[i].dateOfBirth = data[i].dateOfBirth;
+      GPAAdded[i].gender = data[i].gender;
+      GPAAdded[i].email = data[i].email;
+      GPAAdded[i].phone = data[i].phone;
+      GPAAdded[i].address = data[i].address;
+      GPAAdded[i].major1 = data[i].major1;
+      GPAAdded[i].major2 = data[i].major2;
+      GPAAdded[i].creds = courseValue[i].val;
+      GPAAdded[i].GPA = studentGPA[i].val;
 
       }
   res.json(GPAAdded);
@@ -330,6 +330,24 @@ var studentRank = function(student){
   return studentClass;
 };
 
+var getTotalCredits = function(students) {
+  var completedCredits = [];
+  for (var i = 0; i < students.length; i++) {
+    var courses = students[i].courses;
+    completedCredits[i] = {key: students[i].id, val: 0};
+    for (var j = 0; j < courses.length; j++) {
+      if (courses[j].grade === "IP") {
+      }else {
+        completedCredits[i].val += courses[j].course.credits;
+      }
+    }
+  }
+  return completedCredits;
+};
+
+
+
+
 exports.getStudentRank = function(reg, res){
   var studentClass = [];
   var rankAdded = [];
@@ -343,40 +361,25 @@ exports.getStudentRank = function(reg, res){
       studentGPA[i] = {key: data[i].id, val: 0};
       studentGPA[i].val += getStudentGPA(data[i]);
       rankAdded[i] = {};
-      rankAdded[i]['firstName'] = data[i]['firstName'];
-      rankAdded[i]['lastName'] = data[i]['lastName'];
-      rankAdded[i]['courses'] = data[i]['courses'];
-      rankAdded[i]['dateOfBirth'] = data[i]['dateOfBirth'];
-      rankAdded[i]['gender'] = data[i]['gender'];
-      rankAdded[i]['email'] = data[i]['email'];
-      rankAdded[i]['phone'] = data[i]['phone'];
-      rankAdded[i]['address'] = data[i]['address'];
-      rankAdded[i]['major1'] = data[i]['major1'];
-      rankAdded[i]['major2'] = data[i]['major2'];
-      rankAdded[i]['creds'] = courseValue[i].val;
-      rankAdded[i]['rank'] = studentClass[i].val;
-      rankAdded[i]['GPA'] = studentGPA[i].val
+      rankAdded[i].firstName = data[i].firstName;
+      rankAdded[i].lastName = data[i].lastName;
+      rankAdded[i].courses = data[i].courses;
+      rankAdded[i].dateOfBirth = data[i].dateOfBirth;
+      rankAdded[i].gender = data[i].gender;
+      rankAdded[i].email = data[i].email;
+      rankAdded[i].phone = data[i].phone;
+      rankAdded[i].address = data[i].address;
+      rankAdded[i].major1 = data[i].major1;
+      rankAdded[i].major2 = data[i].major2;
+      rankAdded[i].creds = courseValue[i].val;
+      rankAdded[i].rank = studentClass[i].val;
+      rankAdded[i].GPA = studentGPA[i].val
 
     }
     res.json(rankAdded);
   });
 };
 
-
-var getTotalCredits = function(students) {
-  var completedCredits = [];
-  for (var i = 0; i < students.length; i++) {
-    var courses = students[i].courses;
-    completedCredits[i] = {key: students[i].id, val: 0};
-    for (var j = 0; j < courses.length; j++) {
-      if (courses[j].grade == "IP") {
-      }else {
-        completedCredits[i].val += courses[j].course.credits;
-      }
-    }
-  }
-  return completedCredits;
-};
 
 
 

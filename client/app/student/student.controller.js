@@ -12,7 +12,7 @@
       this.findStudentByCourse = function(){
         Student.query({courseName: $scope.studentCourse, id: 'findStudentByCourse'}, function(student){
           $scope.students2 = student;
-        })
+        });
       };
 
       this.getABC = function () {

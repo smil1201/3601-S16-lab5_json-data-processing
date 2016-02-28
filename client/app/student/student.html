@@ -35,19 +35,19 @@
   <br>
 
   <h1>Filter Students By Course</h1>
-      <div>
 
-        <p class="input-group">
-          <input type="text" style="width: 500px" class="form-control" placeholder="Search for Student by Course" ng-model = "studentCourse">
+      <div>
+        <span class="input-group">
+          <input type="text" style="width: 500px" class="form-control" placeholder="Search for Students by Course" ng-model = "studentCourse">
           <button type="submit" class="btn btn-primary" ng-click="student.findStudentByCourse()" >Show students</button>
+        </span>
+        <br>
         <p> Students in {{studentCourse}}: </p>
-          <span>
-          </span>
-        </p>
       </div>
+
   <ul ng-repeat="student in students2">
     <li>{{student.firstName}}  {{student.lastName}}</li>
-    </ul>
+  </ul>
 
 
 

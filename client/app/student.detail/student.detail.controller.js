@@ -5,8 +5,8 @@ angular.module('3601S16Lab5JsonDataProcessingApp')
     $scope.student = Student.get({ id: $stateParams.id });
 
     this.studentDetails = function () {
-      var output = "";
-      for(var i = 0; i < student.length; i++){
+      var output = '';
+      for(var i = 0; i < Student.length; i++){
         output[i] = Student[i].firstName + Student[i].lastName + Student[i].dateOfBirth + Student[i].gender + Student[i].email + Student[i].phone + Student[i].address;
 
       }
