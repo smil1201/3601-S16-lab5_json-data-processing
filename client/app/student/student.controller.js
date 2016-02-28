@@ -28,15 +28,17 @@
 
       };
 
-      this.getGPA = function () {
-        $scope.students = Student.query({id: 'getGPA'});
-
-      };
 
       this.getAllStuGPA = function () {
         $scope.students = Student.query({id: 'getAllStuGPA'});
 
       };
+
+      this.getStudentRank = function () {
+        $scope.students = Student.query({id: 'getStudentRank'});
+
+      };
+
 
       $scope.expand = function(student){
         student.show = !student.show;

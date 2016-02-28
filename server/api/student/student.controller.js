@@ -172,32 +172,6 @@ exports.getMajors = function(req, res) {
 
 
 
-exports.studentDetails = function(req, res) {
-  res.json(students[i].firstName);
- /*
-  var output = "";
-  for (var i=0; i < student.length; i++){
-    if (err) {
-      console.log("Error getting majors from database");
-      res.send(err)
-    } else {
-      res.json(students[i].firstName); // return results
-    }
-    }
-  }*/
-};
-
- /* Student.find({}, null, null, {skip:0, limit:0}, function(err, students) {
-  if (err) {
-    console.log("Error finding the student details");
-    res.send(err)
-  } else {
-    res.json(Student.findByIdAsync);
-  }
-});
-}
-*/
-
 
 //helper function to calculate credit number
 var getCreditsValue = function(students) {
@@ -319,6 +293,7 @@ exports.getAllStuGPA = function(reg, res) {
   var studentGPA = [];
   var GPAAdded = [];
   Student.find({}, null, {skip: 0, limit:30, sort:{lastName: 1}},  function (err, data) {
+    var courseValue = getCreditsValue(data);
     for (var i = 0; i < data.length; i++) {
       studentGPA[i] = {key: data[i].id, val: 0};
       studentGPA[i].val += getStudentGPA(data[i]);
@@ -333,6 +308,7 @@ exports.getAllStuGPA = function(reg, res) {
       GPAAdded[i]['address'] = data[i]['address'];
       GPAAdded[i]['major1'] = data[i]['major1'];
       GPAAdded[i]['major2'] = data[i]['major2'];
+      GPAAdded[i]['creds'] = courseValue[i].val;
       GPAAdded[i]['GPA'] = studentGPA[i].val;
 
       }
@@ -340,13 +316,51 @@ exports.getAllStuGPA = function(reg, res) {
 });
 };
 
+var studentRank = function(student){
+  var credits = getStuCourseCred(student);
+  var completedCredits = 0;
+  for(var i =0; i < credits.length; i++){
+    completedCredits += parseInt(credits[i]);
+  }
+  var studentClass = "";
+  if(completedCredits < 30){
+    studentClass = "Freshman";
+  }
+  else if(completedCredits >= 30 && completedCredits < 60){
+    studentClass = "Sophmore";
+  }
+  else if(completedCredits >= 60 && completedCredits < 90){
+    studentClass = "Junior";
+  }
+  else{
+    studentClass = "Senior"
+  }
+  return studentClass;
+};
 
+exports.getStudentRank = function(reg, res){
+  var studentClass = [];
+  var rankAdded = [];
+  Student.find({}, null, {skip: 0, limit:30, sort:{lastName: 1}},  function (err, data) {
+    var courseValue = getCreditsValue(data);
+    for (var i = 0; i < data.length; i++) {
+      studentClass[i] = {val: ""};
+      studentClass[i].val = studentRank(data[i]);
+      rankAdded[i] = {};
+      rankAdded[i]['firstName'] = data[i]['firstName'];
+      rankAdded[i]['lastName'] = data[i]['lastName'];
+      rankAdded[i]['courses'] = data[i]['courses'];
+      rankAdded[i]['dateOfBirth'] = data[i]['dateOfBirth'];
+      rankAdded[i]['gender'] = data[i]['gender'];
+      rankAdded[i]['email'] = data[i]['email'];
+      rankAdded[i]['phone'] = data[i]['phone'];
+      rankAdded[i]['address'] = data[i]['address'];
+      rankAdded[i]['major1'] = data[i]['major1'];
+      rankAdded[i]['major2'] = data[i]['major2'];
+      rankAdded[i]['creds'] = courseValue[i].val;
+      rankAdded[i]['rank'] = studentClass[i].val;
 
-/*
-
-  var detailedData = [];
-  Student.find({}, function(err, data) {
-    var studentName = getFullName(data);
-    var myName =
-  })
-};*/
+    }
+    res.json(rankAdded);
+  });
+};

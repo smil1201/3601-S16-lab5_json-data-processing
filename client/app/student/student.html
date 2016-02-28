@@ -9,6 +9,7 @@
           <td>{{student.major1}} \\ {{student.major2}}</td>
           <td>{{student.creds}}</td>
           <td>{{student.GPA}}</td>
+          <td>{{student.rank}}</td>
         </tr>
       </table>
     </div>
@@ -21,6 +22,7 @@
         <button type="submit" class="btn btn-primary" ng-click="student.getMajors()">Sort by primary major</button>
         <button type="submit" class="btn btn-primary" ng-click="student.getCredits()">Sort by completed credits</button>
         <button type="submit" class="btn btn-primary" ng-click="student.getAllStuGPA()">Show GPA and sort alphabetically</button>
+        <button type="submit" class="btn btn-primary" ng-click="student.getStudentRank()">Show Student Rank</button>
       </span>
   <br>
       <div>
