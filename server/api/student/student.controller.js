@@ -172,9 +172,9 @@ var getCreditsValue = function(students) {
     var courses = students[i].courses;
     completedCredits[i] = {key: students[i].id, val: 0};
     for (var j = 0; j < courses.length; j++) {
-      if (courses[j].grade == "F") {
+      if (courses[j].grade === "F") {
       }
-      else if (courses[j].grade == "IP") {
+      else if (courses[j].grade === "IP") {
       }else {
         completedCredits[i].val += courses[j].course.credits;
       }
@@ -220,7 +220,7 @@ exports.getCredits = function(req, res) {
 var getStuTotCred = function(student) {
   var totalCredits = 0;
     for (var j = 0; j < student.courses.length; j++) {
-      if (student.courses[j].grade == "IP") {
+      if (student.courses[j].grade === "IP") {
       } else {
         totalCredits += parseInt(student.courses[j].course.credits);
       }
@@ -231,7 +231,7 @@ var getStuTotCred = function(student) {
 var getStuCourseCred = function(student) {
   var credits = [];
   for (var j = 0; j < student.courses.length; j++) {
-    if (student.courses[j].grade == "IP") {
+    if (student.courses[j].grade === "IP") {
       credits[j] = 0
     } else {
       credits[j] = student.courses[j].course.credits;
@@ -243,19 +243,19 @@ var getStuCourseCred = function(student) {
 var studentGradePoints = function(student) {
   var grade = [];
   for (var j = 0; j < student.courses.length; j++) {
-    if (student.courses[j].grade == "F") {
+    if (student.courses[j].grade === "F") {
       grade[j] = 0.00;
     }
-    else if (student.courses[j].grade == "D") {
+    else if (student.courses[j].grade === "D") {
       grade[j] = 1.00;
     }
-    else if (student.courses[j].grade == "C") {
+    else if (student.courses[j].grade === "C") {
       grade[j] = 2.00;
     }
-    else if (student.courses[j].grade == "B") {
+    else if (student.courses[j].grade === "B") {
       grade[j] = 3.00;
     }
-    else if (student.courses[j].grade == "A") {
+    else if (student.courses[j].grade === "A") {
       grade[j] = 4.00;
     }
     else {
@@ -333,11 +333,15 @@ var studentRank = function(student){
 exports.getStudentRank = function(reg, res){
   var studentClass = [];
   var rankAdded = [];
+  var studentGPA = [];
+
   Student.find({},  function (err, data) {
     var courseValue = getTotalCredits(data);
     for (var i = 0; i < data.length; i++) {
       studentClass[i] = {val: ""};
       studentClass[i].val = studentRank(data[i]);
+      studentGPA[i] = {key: data[i].id, val: 0};
+      studentGPA[i].val += getStudentGPA(data[i]);
       rankAdded[i] = {};
       rankAdded[i]['firstName'] = data[i]['firstName'];
       rankAdded[i]['lastName'] = data[i]['lastName'];
@@ -351,6 +355,7 @@ exports.getStudentRank = function(reg, res){
       rankAdded[i]['major2'] = data[i]['major2'];
       rankAdded[i]['creds'] = courseValue[i].val;
       rankAdded[i]['rank'] = studentClass[i].val;
+      rankAdded[i]['GPA'] = studentGPA[i].val
 
     }
     res.json(rankAdded);

@@ -3,6 +3,14 @@
     <div class="col-lg-12">
       <h1 class="page-header">Student Sorting</h1>
       <table>
+        <tr>
+          <th>Student Name</th>
+          <th>Date of Birth</th>
+          <th>Majors</th>
+          <th>Credits</th>
+          <th>GPA</th>
+          <th>Student Rank</th>
+        </tr>
         <tr ng-repeat="student in students | orderBy: 'creds'">
           <td>{{ student.firstName }} {{ student.lastName }} </td>
           <td>{{student.dateOfBirth}}</td>
@@ -21,16 +29,18 @@
         <button type="submit" class="btn btn-primary" ng-click="student.getDOB()">Sort by date of birth</button>
         <button type="submit" class="btn btn-primary" ng-click="student.getMajors()">Sort by primary major</button>
         <button type="submit" class="btn btn-primary" ng-click="student.getCredits()">Sort by completed credits</button>
-        <button type="submit" class="btn btn-primary" ng-click="student.getAllStuGPA()">Show GPA and sort alphabetically</button>
-        <button type="submit" class="btn btn-primary" ng-click="student.getStudentRank()">Show Student Rank</button>
+        <button type="submit" class="btn btn-primary" ng-click="student.getAllStuGPA()">Display GPA</button>
+        <button type="submit" class="btn btn-primary" ng-click="student.getStudentRank()">Sort by Student Rank</button>
       </span>
   <br>
 
   <h1>Filter Students By Course</h1>
       <div>
+
         <p class="input-group">
           <input type="text" style="width: 500px" class="form-control" placeholder="Search for Student by Course" ng-model = "studentCourse">
           <button type="submit" class="btn btn-primary" ng-click="student.findStudentByCourse()" >Show students</button>
+        <p> Students in {{studentCourse}}: </p>
           <span>
           </span>
         </p>
@@ -42,7 +52,7 @@
 
 
 
-<h1>Student Details</h1>
+<h1>Student Details and Courses</h1>
   <p>Click on a student below to show their details and courses!</p>
   <ul ng-repeat = "student in students" ng-click = "expandDetails(student)">
     <li class = "name">{{student.firstName}} {{student.lastName}}</li>
