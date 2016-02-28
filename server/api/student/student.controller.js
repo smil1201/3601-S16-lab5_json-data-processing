@@ -170,9 +170,8 @@ exports.getMajors = function(req, res) {
   });
 };
 
-exports.findStudentByCourse = function(req, res, studentCourse) {
-  console.log('banana' + studentCourse);
-  Student.find({'courses.course.name':studentCourse}, null, {skip: 0, limit:30, sort:{}},  function (err, students) {
+exports.findStudentByCourse = function(req, res) {
+  Student.find({'courses.course.name': 'Models of Computing Systems'}, null, {skip: 0, limit:30, sort:{}},  function (err, students) {
     if (err) {
       console.log("Error getting data from database");
       res.send(err)
@@ -181,7 +180,6 @@ exports.findStudentByCourse = function(req, res, studentCourse) {
     }
   });
 };
-
 
 
 //helper function to calculate credit number

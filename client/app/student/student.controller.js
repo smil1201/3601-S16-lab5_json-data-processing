@@ -5,6 +5,15 @@
 
       $scope.students = Student.query();
 
+      $scope.studentCourse = "BANANA";
+
+      $scope.testing = function(){
+        Student.query({course: 'banana'});
+      };
+
+
+
+
       this.findStudentByCourse = function(){
         $scope.studentCourse = Student.query({id: 'findStudentByCourse'});
       };

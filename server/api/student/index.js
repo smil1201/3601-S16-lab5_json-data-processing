@@ -16,8 +16,6 @@ router.get('/getStudentRank', controller.getStudentRank);
 router.get('/findStudentByCourse', controller.findStudentByCourse);
 
 
-
-
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
