@@ -104,22 +104,6 @@ export function destroy(req, res) {
 //our functions
 
 
-//student details in progress
-/*
-exports.studentDetails = function(req, res, student) {
-  var details = Student.findById(student)
-
-  Student.find({}, function(err, data) {
-    var courseValue = getCreditsValue(data);
-
-
-  Student.findByIdAsync(req.params.id)
-    .then(handleEntityNotFound(res))
-    .then(respondWithResult(res))
-    .catch(handleError(res));
-};
-*/
-
 
 //sorts alphabetically by last name
 exports.getABC = function(req, res) {
@@ -171,12 +155,11 @@ exports.getMajors = function(req, res) {
 };
 
 exports.findStudentByCourse = function(req, res) {
-  Student.find({'courses.course.name': 'Models of Computing Systems'}, null, {skip: 0, limit:30, sort:{}},  function (err, students) {
+  Student.find({'courses.course.name': req.query['courseName']}, null, {skip: 0, limit:30, sort:{}}, function (err, student) {
     if (err) {
-      console.log("Error getting data from database");
       res.send(err)
     } else {
-      res.json(students); // return results
+      res.json(student); // return results
     }
   });
 };

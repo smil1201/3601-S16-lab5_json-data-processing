@@ -29,24 +29,35 @@
   <h1>Filter Students By Course</h1>
       <div>
         <p class="input-group">
-          <input type="text" style="width: 500px" class="form-control" placeholder="Search for Student by Course" ng-model = "student.studentCourse">
+          <input type="text" style="width: 500px" class="form-control" placeholder="Search for Student by Course" ng-model = "studentCourse">
           <button type="submit" class="btn btn-primary" ng-click="student.findStudentByCourse()" >Show students</button>
           <span>
           </span>
         </p>
       </div>
-  <p>text = {{student.studentCourse}}</p>
-  <ul ng-repeat="student in studentCourse">
+  <ul ng-repeat="student in students2">
     <li>{{student.firstName}}  {{student.lastName}}</li>
     </ul>
 
 
+  <h1>Filter Students By Year (Freshman, Sophomore, Junior, Senior)</h1>
+  <div>
+    <p class="input-group">
+      <input type="text" style="width: 500px" class="form-control" placeholder="Search for Student by Course" ng-model = "studentYear">
+      <button type="submit" class="btn btn-primary" ng-click="student.findStudentByYear()" >Show students</button>
+          <span>
+          </span>
+    </p>
+  </div>
+  <ul ng-repeat="student in students3">
+    <li>{{student.firstName}}  {{student.lastName}}</li>
+  </ul>
 
 
 
 
 <h1>Student Details</h1>
-  <p>Click on a student below to show their details!</p>
+  <p>Click on a student below to show their details and courses!</p>
   <ul ng-repeat = "student in students" ng-click = "expandDetails(student)">
     <li class = "name">{{student.firstName}} {{student.lastName}}</li>
     <li ng-show = "student.show">
@@ -67,11 +78,3 @@
     </li>
 </ul>
 </div>
-
-<br>
-<br>
-<h1>Test</h1>
-<ul ng-repeat="student in student.testing2('Models of Computing Systems')">
-  <li>{{student.firstName}}  {{student.lastName}}</li>
-</ul>
-

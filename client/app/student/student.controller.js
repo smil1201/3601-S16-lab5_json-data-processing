@@ -3,19 +3,23 @@
   angular.module('3601S16Lab5JsonDataProcessingApp')
     .controller('StudentCtrl', function ($scope, Student) {
 
+
       $scope.students = Student.query();
 
-      $scope.studentCourse = "BANANA";
+      $scope.students2 = Student.query();
 
-      $scope.testing = function(){
-        Student.query({course: 'banana'});
-      };
-
-
-
+      $scope.students3 = Student.query();
 
       this.findStudentByCourse = function(){
-        $scope.studentCourse = Student.query({id: 'findStudentByCourse'});
+        Student.query({courseName: $scope.studentCourse, id: 'findStudentByCourse'}, function(student){
+          $scope.students2 = student;
+        })
+      };
+
+      this.findStudentByYear = function(){
+        Student.query({year: $scope.studentYear, id: 'findStudentByYear'}, function(student){
+          $scope.students3 = student;
+        })
       };
 
       this.getABC = function () {
