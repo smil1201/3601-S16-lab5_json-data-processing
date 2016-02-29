@@ -35,8 +35,8 @@ describe('Student API:', function() {
       request(app)
         .post('/api/students')
         .send({
-          name: 'New Student',
-          info: 'This is the brand new student!!!'
+          firstName: 'New Student',
+          dateOfBirth: 'May 5th 1990'
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -50,8 +50,8 @@ describe('Student API:', function() {
     });
 
     it('should respond with the newly created student', function() {
-      newStudent.name.should.equal('New Student');
-      newStudent.info.should.equal('This is the brand new student!!!');
+      newStudent.firstName.should.equal('New Student');
+      newStudent.dateOfBirth.should.equal('May 5th 1990');
     });
 
   });
@@ -78,8 +78,8 @@ describe('Student API:', function() {
     });
 
     it('should respond with the requested student', function() {
-      student.name.should.equal('New Student');
-      student.info.should.equal('This is the brand new student!!!');
+      student.firstName.should.equal('New Student');
+      student.dateOfBirth.should.equal('May 5th 1990');
     });
 
   });
@@ -91,8 +91,8 @@ describe('Student API:', function() {
       request(app)
         .put('/api/students/' + newStudent._id)
         .send({
-          name: 'Updated Student',
-          info: 'This is the updated student!!!'
+          firstName: 'Updated Student',
+          dateOfBirth: 'May 5th 1990'
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -110,8 +110,8 @@ describe('Student API:', function() {
     });
 
     it('should respond with the updated student', function() {
-      updatedStudent.name.should.equal('Updated Student');
-      updatedStudent.info.should.equal('This is the updated student!!!');
+      updatedStudent.firstName.should.equal('Updated Student');
+      updatedStudent.dateOfBirth.should.equal('May 5th 1990');
     });
 
   });
