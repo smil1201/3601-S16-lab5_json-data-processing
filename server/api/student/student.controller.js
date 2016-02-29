@@ -101,6 +101,10 @@ export function destroy(req, res) {
     .catch(handleError(res));
 }
 
+
+
+
+
 //our functions
 
 
@@ -154,6 +158,7 @@ exports.getMajors = function(req, res) {
   });
 };
 
+//filter students by course
 exports.findStudentByCourse = function(req, res) {
   Student.find({'courses.course.name': req.query.courseName}, null, {skip: 0, limit:30, sort:{}}, function (err, student) {
     if (err) {
@@ -216,7 +221,7 @@ exports.getCredits = function(req, res) {
   });
 };
 
-
+//helper function to get total credits
 var getStuTotCred = function(student) {
   var totalCredits = 0;
     for (var j = 0; j < student.courses.length; j++) {
@@ -228,6 +233,8 @@ var getStuTotCred = function(student) {
   return totalCredits;
 };
 
+
+//helper function to get credits for a course
 var getStuCourseCred = function(student) {
   var credits = [];
   for (var j = 0; j < student.courses.length; j++) {
@@ -240,6 +247,7 @@ var getStuCourseCred = function(student) {
   return credits;
 };
 
+//helper function for GPA calculation
 var studentGradePoints = function(student) {
   var grade = [];
   for (var j = 0; j < student.courses.length; j++) {
@@ -265,6 +273,7 @@ var studentGradePoints = function(student) {
   return grade;
 };
 
+//GPA helper function: individual studentGPA
 var getStudentGPA = function(student){
   var totalCredits = [];
   var totalGradePoints = [];
@@ -281,6 +290,7 @@ var getStudentGPA = function(student){
   return parseFloat(studentGPA.toFixed(2))
 };
 
+//main GPA function
 exports.getAllStuGPA = function(reg, res) {
   var studentGPA = [];
   var GPAAdded = [];
@@ -308,6 +318,7 @@ exports.getAllStuGPA = function(reg, res) {
 });
 };
 
+//helper function to get student rank
 var studentRank = function(student){
   var credits = getStuCourseCred(student);
   var completedCredits = 0;
@@ -330,6 +341,9 @@ var studentRank = function(student){
   return studentClass;
 };
 
+
+
+//student rank helper function
 var getTotalCredits = function(students) {
   var completedCredits = [];
   for (var i = 0; i < students.length; i++) {
@@ -347,7 +361,7 @@ var getTotalCredits = function(students) {
 
 
 
-
+//main student rank function
 exports.getStudentRank = function(reg, res){
   var studentClass = [];
   var rankAdded = [];
